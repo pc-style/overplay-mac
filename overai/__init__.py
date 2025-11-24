@@ -1,7 +1,13 @@
 """
-OverAI - A macOS overlay app for OverAI.
+OverAI - A macOS overlay library and app.
 
-Every AI in a single window.
+This library provides a simple, flexible way to create customizable overlay
+windows on macOS with transparency support, click-through mode, auto-hide,
+borders, and more using PyObjC.
+
+The library can be used in two ways:
+1. As a library to create custom overlays in your own applications
+2. As the original OverAI application for AI assistance
 
 -- Sai Praveen 
 """
@@ -21,8 +27,8 @@ def _read_about_file(fname, default=""):
 __version__ = _read_about_file("version.txt", "0.0.1")
 __author__ = _read_about_file("author.txt", "Sai Praveen")
 
-__all__ = ["main"]
+# Export main for backwards compatibility with the original app
+__all__ = ["main", "Overlay", "OverlayWindow", "DragArea"]
 
-from .main import main  
-
-# Only import if you want "from overai import main" to work.
+from .main import main
+from .overlay import Overlay, OverlayWindow, DragArea
