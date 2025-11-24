@@ -1,6 +1,7 @@
 # setup.py
 from setuptools import setup, find_packages
 import os
+import sys
 
 # Read version
 def read_about_file(fname, default=""):
@@ -81,7 +82,6 @@ OPTIONS = {
 }
 
 # Only configure py2app if it's being used
-import sys
 if "py2app" in sys.argv:
     setup(
         app=APP,
