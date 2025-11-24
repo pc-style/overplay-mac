@@ -319,8 +319,9 @@ class DragArea(NSView):
     """A view that allows dragging the window."""
     
     def initWithFrame_(self, frame):
-        objc.super(DragArea, self).initWithFrame_(frame)
-        self.setWantsLayer_(True)
+        self = objc.super(DragArea, self).initWithFrame_(frame)
+        if self:
+            self.setWantsLayer_(True)
         return self
     
     def setBackgroundColor_(self, color):

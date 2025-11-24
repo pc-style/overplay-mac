@@ -8,7 +8,7 @@ def read_about_file(fname, default=""):
         about_dir = os.path.join("overai", "about")
         with open(os.path.join(about_dir, fname)) as f:
             return f.read().strip()
-    except Exception:
+    except (FileNotFoundError, IOError, OSError):
         return default
 
 version = read_about_file("version.txt", "0.1.0")
