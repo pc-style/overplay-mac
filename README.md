@@ -8,6 +8,15 @@ Originally based on OverAI, this library allows you to create various types of o
 
 ---
 
+## 📖 Documentation
+
+- **[Quick Reference](QUICKREF.md)** - Cheatsheet for common tasks
+- **[Installation Guide](INSTALL.md)** - Detailed installation and testing instructions
+- **[Usage Guide](USAGE.md)** - Complete API reference and advanced examples
+- **[Examples](examples/README.md)** - Working example scripts
+
+---
+
 ## 🚀 Quick Start
 
 ### Installation
