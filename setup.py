@@ -64,6 +64,10 @@ setup(
 )
 
 # py2app configuration for building the standalone app
+# Note: This dual setup() structure is intentional:
+# - The first setup() configures the library for pip install
+# - The second setup() only runs with 'python setup.py py2app' to build the .app
+# This allows the same setup.py to handle both library distribution and app building
 APP = ["OverAI.py"]
 DATA_FILES = []
 OPTIONS = {
