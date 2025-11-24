@@ -17,7 +17,7 @@ version = read_about_file("version.txt", "0.1.0")
 try:
     with open("README.md", encoding="utf-8") as f:
         long_description = f.read()
-except:
+except (FileNotFoundError, IOError):
     long_description = "A flexible, customizable overlay window library for macOS"
 
 # Library setup

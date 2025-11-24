@@ -6,23 +6,35 @@ Supports transparency, click-through, borders, auto-hide, and more.
 """
 
 import objc
-from AppKit import *
-from WebKit import *
-from Quartz import *
+# Star imports are used here as is idiomatic in PyObjC applications
+# to match Objective-C naming conventions and access framework constants
+from AppKit import *  # noqa: F403, F401
+from WebKit import *  # noqa: F403, F401
+from Quartz import *  # noqa: F403, F401
 from Foundation import NSObject, NSURL, NSURLRequest
 
 
 class OverlayWindow(NSWindow):
     """Custom overlay window with configurable properties."""
     
-    def __init__(self, click_through=False):
+    def initWithContentRect_styleMask_backing_defer_clickThrough_(
+        self, contentRect, styleMask, backing, deferCreation, clickThrough
+    ):
         """Initialize the overlay window.
         
         Args:
-            click_through: If True, mouse events pass through the window
+            contentRect: The initial frame rectangle
+            styleMask: The window style mask
+            backing: The backing store type
+            deferCreation: Whether to defer window creation
+            clickThrough: If True, mouse events pass through the window
         """
-        self._click_through = click_through
-        super(OverlayWindow, self).__init__()
+        self = objc.super(OverlayWindow, self).initWithContentRect_styleMask_backing_defer_(
+            contentRect, styleMask, backing, deferCreation
+        )
+        if self:
+            self._click_through = clickThrough
+        return self
     
     def canBecomeKeyWindow(self):
         """Allow window to become key window unless click-through is enabled."""
@@ -107,11 +119,12 @@ class Overlay:
         if not self.click_through:
             style_mask |= NSResizableWindowMask
             
-        self.window = OverlayWindow.alloc().initWithContentRect_styleMask_backing_defer_(
+        self.window = OverlayWindow.alloc().initWithContentRect_styleMask_backing_defer_clickThrough_(
             NSMakeRect(self.x, self.y, self.width, self.height),
             style_mask,
             NSBackingStoreBuffered,
-            False
+            False,
+            self.click_through  # Pass click_through parameter
         )
         
         # Configure window level
