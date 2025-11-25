@@ -31,4 +31,14 @@ __author__ = _read_about_file("author.txt", "Sai Praveen")
 __all__ = ["main", "Overlay", "OverlayWindow", "DragArea"]
 
 from .main import main
-from .overlay import Overlay, OverlayWindow, DragArea
+
+# Lazy imports for overlay classes to avoid loading PyObjC frameworks
+# until they are explicitly used
+def __getattr__(name):
+    if name in ("Overlay", "OverlayWindow", "DragArea"):
+        from .overlay import Overlay, OverlayWindow, DragArea
+        globals()["Overlay"] = Overlay
+        globals()["OverlayWindow"] = OverlayWindow
+        globals()["DragArea"] = DragArea
+        return globals()[name]
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
